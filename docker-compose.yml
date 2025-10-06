@@ -1,0 +1,39 @@
+services:
+  app:
+    image: ghcr.io/zsoltgombocz/rescanny-api:latest
+    container_name: rescanny-api
+    working_dir: /var/www
+    volumes:
+      - ./.env:/var/www/.env
+      - ./VERSION:/var/www/VERSION
+    depends_on:
+      - redis
+      - mysql
+
+  mysql:
+    env_file:
+      - path: .env.docker
+        required: true
+    image: mysql:8.0
+    container_name: rescanny-mysql
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:8-alpine
+    container_name: rescanny-redis
+    restart: unless-stopped
+    command: ['redis-server', "--maxmemory", "3000mb"]
+
+  pma:
+    env_file:
+      - path: .env.pma
+        required: true
+    image: phpmyadmin:latest
+    container_name: rescanny-pma
+    restart: unless-stopped
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
