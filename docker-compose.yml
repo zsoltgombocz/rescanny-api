@@ -9,6 +9,11 @@ services:
     depends_on:
       - redis
       - mysql
+    networks:
+      internal:
+      caddy:
+        - aliases:
+            - rescanny-api
 
   mysql:
     env_file:
@@ -18,12 +23,16 @@ services:
     container_name: rescanny-mysql
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - internal
 
   redis:
     image: redis:8-alpine
     container_name: rescanny-redis
     restart: unless-stopped
     command: ['redis-server', "--maxmemory", "3000mb"]
+    networks:
+      - internal
 
   pma:
     env_file:
@@ -34,6 +43,16 @@ services:
     restart: unless-stopped
     depends_on:
       - mysql
+    networks:
+      internal:
+      caddy:
+        - aliases:
+            - rescanny-api-pma
 
 volumes:
   mysql_data:
+
+networks:
+  internal:
+  caddy:
+    external: true
