@@ -5,5 +5,5 @@ use App\Providers\EventServiceProvider;
 
 return [
     AppServiceProvider::class,
-    EventServiceProvider::class
+    EventServiceProvider::class,
 ];

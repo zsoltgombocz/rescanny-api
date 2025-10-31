@@ -13,8 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware
-            ->append(EnsureApiKeyIsValid::class)
-            ->statefulApi();
+            ->alias([
+                'api.quest' => \App\Middlewares\RejectIfAuthenticated::class,
+            ])
+            ->statefulApi()
+            ->append(EnsureApiKeyIsValid::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

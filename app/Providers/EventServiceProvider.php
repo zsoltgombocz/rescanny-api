@@ -9,7 +9,7 @@ class EventServiceProvider extends \Illuminate\Foundation\Support\Providers\Even
 {
     protected $listen = [
         Login::class => [
-            SetLoginDate::class
-        ]
+            SetLoginDate::class,
+        ],
     ];
 }

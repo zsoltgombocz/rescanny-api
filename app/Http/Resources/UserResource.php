@@ -31,7 +31,7 @@ class UserResource extends JsonResource
             'last_name' => $this->last_name,
             'email' => $this->email,
             'last_login' => $this->last_login,
-            'registered_recently' => $this->registeredRecently()
+            'registered_recently' => $this->registeredRecently(),
         ];
     }
 }

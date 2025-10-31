@@ -1,0 +1,26 @@
+{
+    "register.success": "Sikeresen regisztráltál és belettél léptetve!",
+    "login.success": "Sikeres bejelentkezés!",
+    "login.failed": "Sikertelen bejelentkezés, rossz név jelszó párosítás!",
+
+    "auth.magic_link.success": "Kiküldtük a bejelentkezéshez szükséges linket emailben!",
+    "auth.magic_link.failed": "Hiba történt, kérlek próbáld újra!",
+
+    "auth.magic_link.expired": "A link lejárt, kérlek kérj egy újat a belépéshez!",
+
+    "auth.magic_link.login.success": "Sikeres bejelentkezés!",
+    "auth.magic_link.registration.success": "Köszönjük a regisztrációd, belettél jelentkeztetve!",
+
+    "mail.guest": "Felhasználó",
+    "mail.greet": "Kedves :name!",
+    "mail.salutation": "<br>Üdvözlettel,<br>Rescanny csapata",
+    "mail.button.problem": "Ha nem jelenik meg a gomb használd az alánni linket:<br><a href=':url' target='_blank' rel='noopener' style='word-break:break-all'>:url</a>",
+
+    "mail.auth.magic_link.line_1": "A Rescanny-fiókodba való bejelentkezéshez az alábbi gombra kattinthatsz.",
+    "mail.auth.magic_link.line_2": "A link csak rövid ideig érvényes, és egyszer használható.",
+    "mail.auth.magic_link.button": "Bejelentkezés a Rescanny-be",
+
+    "mail.auth.warning": "Ha nem te kérted ezt az e-mailt, egyszerűen hagyd figyelmen kívül - <br>a fiókod biztonságban van, nem történt bejelentkezés.",
+
+    "mail.type": "Automatikus e-mail"
+}
