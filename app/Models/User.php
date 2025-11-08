@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Domains\User\Concerns\HasDisplayName;
+use App\Domains\User\Concerns\HasLocalePreferences;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +13,11 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable implements HasLocalePreference
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, HasUuids, Notifiable;
+    use HasDisplayName,
+        HasFactory,
+        HasLocalePreferences,
+        HasUuids,
+        Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -35,23 +41,10 @@ class User extends Authenticatable implements HasLocalePreference
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'magic_link_expires_at' => 'datetime',
-            'last_login' => 'datetime',
-        ];
-    }
-
-    public function preferredLocale(): string
-    {
-        return $this->locale;
-    }
+    protected $casts = [
+        'magic_link_expires_at' => 'datetime',
+        'last_login' => 'datetime',
+    ];
 
     public function magicLink(): string
     {
@@ -60,6 +53,10 @@ class User extends Authenticatable implements HasLocalePreference
 
     public function registeredRecently(): bool
     {
+        if (empty($this->created_at)) {
+            return false;
+        }
+
         return $this->created_at->isCurrentDay();
     }
 }

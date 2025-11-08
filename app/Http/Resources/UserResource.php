@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 /**
  * @mixin User
@@ -25,13 +26,25 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
             'id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
+            'display_name' => $this->display_name,
+            'avatar' => $this->avatarLetters(),
             'email' => $this->email,
-            'last_login' => $this->last_login,
-            'registered_recently' => $this->registeredRecently(),
+            'last_login' => $this->carbonFactory()->make($this->last_login)?->isoFormat('LLL'),
+            'locale' => $this->preferredLocale(),
         ];
+    }
+
+    private function avatarLetters(): string
+    {
+        $nameFragments = explode(' ', $this->display_name);
+
+        return collect($nameFragments)
+            ->map(fn (string $fragment) => Str::substr($fragment, 0, 1))
+            ->join('');
     }
 }
