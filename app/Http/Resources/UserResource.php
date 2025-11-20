@@ -29,13 +29,18 @@ class UserResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'display_name' => $this->display_name,
+            'firstName' => $this->first_name,
+            'lastName' => $this->last_name,
+            'displayName' => $this->display_name,
             'avatar' => $this->avatarLetters(),
             'email' => $this->email,
-            'last_login' => $this->carbonFactory()->make($this->last_login)?->isoFormat('LLL'),
+            'lastLogin' => $this->carbonFactory()->make($this->last_login)?->isoFormat('LLL'),
             'locale' => $this->preferredLocale(),
+            'subscription' => [
+                'label' => 'Pro',
+                'price' => '4 990 Ft / hó',
+                'nextBilling' => '2025. január 15',
+            ],
         ];
     }
 
