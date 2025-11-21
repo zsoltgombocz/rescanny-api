@@ -17,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'api.quest' => \App\Middlewares\RejectIfAuthenticated::class,
             ])
             ->statefulApi()
-            ->append(EnsureApiKeyIsValid::class);
+            ->appendToGroup('api', EnsureApiKeyIsValid::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

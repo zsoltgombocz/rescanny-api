@@ -12,7 +12,7 @@ class MeAction
     public function __invoke(): Response|JsonResource
     {
         /** @var User $user */
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
 
         return $user->toResource();
     }
