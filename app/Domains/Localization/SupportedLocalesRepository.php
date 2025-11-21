@@ -17,8 +17,12 @@ readonly class SupportedLocalesRepository
         return Collection::make($locales);
     }
 
-    public function isValidLocale(string $locale): bool
+    public function isValidLocale(?string $locale): bool
     {
+        if(empty($locale)) {
+            return false;
+        }
+
         return $this->getAll()->has($locale);
     }
 }
