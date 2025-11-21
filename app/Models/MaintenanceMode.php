@@ -3,14 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class MaintenanceMode extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'enabled',
         'display_text',
         'from',
         'to',
+    ];
+
+    /**
+     * @var array|string[]
+     */
+    public array $translatable = [
+        'display_text',
     ];
 
     protected $casts = [

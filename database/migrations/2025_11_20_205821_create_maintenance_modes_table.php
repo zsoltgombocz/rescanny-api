@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->text('display_text')->nullable()->default(null);
+            $table->json('display_text')->nullable()->default(null);
             $table->boolean('enabled')->default(false);
             $table->timestamp('from')->nullable()->default(null);
             $table->timestamp('to')->nullable()->default(null);

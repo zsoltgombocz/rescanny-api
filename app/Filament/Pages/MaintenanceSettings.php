@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Domains\Localization\SupportedLocalesRepository;
 use App\Models\MaintenanceMode;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
@@ -13,6 +14,7 @@ use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 /**
  * @property Schema $form
@@ -36,7 +38,7 @@ class MaintenanceSettings extends Page implements HasSchemas
 
     public function mount(): void
     {
-        $entry = MaintenanceMode::firstOrCreate([]);
+        $entry = MaintenanceMode::firstOrCreate();
         $this->form->fill($entry->toArray());
     }
 
@@ -64,11 +66,27 @@ class MaintenanceSettings extends Page implements HasSchemas
                 DateTimePicker::make('to')
                     ->label('Karbantertás vége'),
 
-                Textarea::make('display_text')
-                    ->rows(3)
-                    ->columnSpanFull()
-                    ->label('Megjelenítendő üzenet'),
+                ...$this->localizedDisplayMessageInputs(),
+
             ])->statePath('data');
+    }
+
+    /**
+     * @return Textarea[]
+     *
+     * @throws BindingResolutionException
+     */
+    private function localizedDisplayMessageInputs(): array
+    {
+        $localeRepository = app()->make(SupportedLocalesRepository::class);
+
+        return $localeRepository->getAll()->flatMap(function (string $label, string $locale) {
+            return [
+                Textarea::make("display_text.$locale")
+                    ->label("$label megjelenítendő üzenet")
+                    ->rows(3),
+            ];
+        })->toArray();
     }
 
     public function save(): void
