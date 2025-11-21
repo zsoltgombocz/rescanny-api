@@ -15,7 +15,7 @@ class MagicLinkAuthenticationAction
         $user = User::query()->where('email', $request->email)->first();
 
         if (empty($user)) {
-            $user = User::query()->create(['email' => $request->email])->fresh();
+            $user = User::query()->create(['email' => $request->email, 'locale' => app()->getLocale()])->fresh();
         }
 
         /** @var User $user */

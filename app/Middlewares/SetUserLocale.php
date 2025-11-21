@@ -2,6 +2,7 @@
 
 namespace App\Middlewares;
 
+use App\Domains\Localization\SupportedLocalesRepository;
 use App\Models\User;
 use Auth;
 use Closure;
@@ -14,10 +15,12 @@ class SetUserLocale
     {
         /** @var ?User $user */
         $user = Auth::guard('web')->user();
+        $acceptLanguage = $request->getPreferredLanguage();
+        $localesRepository = resolve(SupportedLocalesRepository::class);
 
-        if (! empty($user)) {
-            app()->setLocale($user->preferredLocale());
-        }
+        $headerLocale = $localesRepository->isValidLocale($acceptLanguage) ? $acceptLanguage : 'en';
+
+        app()->setLocale($user ? $user->preferredLocale() : $headerLocale);
 
         return $next($request);
     }
