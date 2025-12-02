@@ -11,7 +11,7 @@ class MagicLinkValidationAction
 {
     public function __invoke(MagicLinkValidationRequest $request): Response
     {
-        if (Auth::check()) {
+        if (Auth::guard('web')->check()) {
             return response()->json(null, Response::HTTP_OK);
         }
 
@@ -25,7 +25,7 @@ class MagicLinkValidationAction
 
         $message = $user->last_login === null ? __('auth.magic_link.registration.success') : __('auth.magic_link.login.success');
 
-        Auth::login($user);
+        Auth::guard('web')->login($user);
 
         return response()->json([
             'message' => $message,

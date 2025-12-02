@@ -13,8 +13,8 @@ class DeleteAction
     public function __invoke(): Response|JsonResource
     {
         /** @var User $user */
-        $user = Auth::user();
-        Auth::logout();
+        $user = Auth::guard('web')->user();
+        Auth::guard('web')->logout();
 
         UserDeleted::dispatch($user);
 
