@@ -53,13 +53,4 @@ class User extends Authenticatable implements HasLocalePreference
     {
         return config('app.webapp_url').'/login/magic-link?token='.$this->magic_link_uuid;
     }
-
-    public function registeredRecently(): bool
-    {
-        if (empty($this->created_at)) {
-            return false;
-        }
-
-        return $this->created_at->isCurrentDay();
-    }
 }
