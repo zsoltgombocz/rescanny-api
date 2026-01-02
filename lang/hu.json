@@ -27,12 +27,22 @@
     "mail.subject.magic-link": "Bejelentkezés Rescanny-be",
     "mail.subject.account_deleted": "Fiókod és adataid véglegesen törölve lettek",
 
+    "mail.user.deleted.subject": "Fiókod törölve",
     "mail.user.deleted.line_1": "A fiókodat sikeresen töröltük. Minden feltöltött képét, személyes adatot, számlázási és fizetési információt véglegesen eltávolítottunk a rendszerünkből.",
     "mail.user.deleted.line_2": "Köszönjük, hogy használtad szolgáltatásunkat!",
+    "mail.user.deleted.line_admin": "A fiókod egy adminisztrátor törölte, reklamációd itt tudjuk kezelni ha nem jogosan történt: <a href='mailto:info@rescanny.hu'>info@rescanny.hu</a>",
 
     "user": "Felhasználó",
 
     "auth.logout": "Sikeres kijelentkezés!",
 
-    "user.deleted": "Fiók törölve! Kilettél jelentkeztetve!"
+    "user.deleted": "Fiók törölve! Kilettél jelentkeztetve!",
+
+    "locale.hu": "Magyar",
+    "locale.en": "Angol",
+    "locale.de": "Német",
+
+    "subscription.label.free": "Ingyenes",
+    "subscription.label.premium_monthly": "Prémium (havi)",
+    "subscription.label.premium_annual": "Prémium (éves)"
 }
