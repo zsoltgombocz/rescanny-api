@@ -17,7 +17,7 @@ class UserAccountDeletedMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(private User $user)
+    public function __construct(private User $user, private bool $deletedByAdmin = false)
     {
         //
     }
@@ -29,7 +29,7 @@ class UserAccountDeletedMail extends Mailable
     {
         return new Envelope(
             from: Sender::noReply(),
-            subject: 'Fiókod törölve',
+            subject: __('mail.user.deleted.subject'),
         );
     }
 
@@ -42,6 +42,7 @@ class UserAccountDeletedMail extends Mailable
             markdown: 'mail.user_deleted',
             with: [
                 'name' => $this->user->first_name ?? __('mail.guest'),
+                'deletedByAdmin' => $this->deletedByAdmin,
             ]
         );
     }

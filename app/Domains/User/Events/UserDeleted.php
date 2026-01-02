@@ -12,6 +12,7 @@ class UserDeleted
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public function __construct(
-        public User $user
+        public User $user,
+        public bool $deletedByAdmin = false,
     ) {}
 }
