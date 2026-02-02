@@ -15,10 +15,11 @@ use Laravel\Cashier\Billable;
 class User extends Authenticatable implements HasLocalePreference
 {
     use Billable;
-
     use HasDisplayName;
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
+
     use HasLocalePreferences;
     use HasUuids;
     use Notifiable;
