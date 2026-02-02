@@ -5,8 +5,11 @@ use App\Http\Actions\Auth\LogoutAction;
 use App\Http\Actions\Auth\MagicLinkAuthenticationAction;
 use App\Http\Actions\Auth\MagicLinkValidationAction;
 use App\Http\Actions\Pages\ShowPageAction;
+use App\Http\Actions\User\ConfirmEmailChangeAction;
 use App\Http\Actions\User\DeleteAction;
 use App\Http\Actions\User\MeAction;
+use App\Http\Actions\User\RequestEmailChangeAction;
+use App\Http\Actions\User\UpdatePersonalInformationAction;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/status', StatusAction::class);
@@ -26,6 +29,11 @@ Route::middleware(['web'])->group(function () {
         ->group(function () {
             Route::get('/me', MeAction::class);
             Route::post('/delete', DeleteAction::class);
+
+            Route::post('/update/personal', UpdatePersonalInformationAction::class)->middleware(['throttle:6,0.5']);
+
+            Route::post('/email-change/request', RequestEmailChangeAction::class);
+            Route::post('/email-change/confirm', ConfirmEmailChangeAction::class);
         });
 
     Route::get('pages/{slug}', ShowPageAction::class);

@@ -19,4 +19,9 @@ trait HasDisplayName
 
         return "$this->first_name $this->last_name";
     }
+
+    public function getDisplayFirstNameAttribute(): string
+    {
+        return $this->first_name ?? __('user');
+    }
 }

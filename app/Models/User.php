@@ -7,16 +7,17 @@ use App\Domains\User\Concerns\HasLocalePreferences;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
 
 class User extends Authenticatable implements HasLocalePreference
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use Billable;
 
     use HasDisplayName;
+    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
     use HasLocalePreferences;
     use HasUuids;
@@ -49,6 +50,14 @@ class User extends Authenticatable implements HasLocalePreference
         'magic_link_expires_at' => 'datetime',
         'last_login' => 'datetime',
     ];
+
+    /**
+     * @return HasMany<EmailChange, $this>
+     */
+    public function emailChanges(): HasMany
+    {
+        return $this->hasMany(EmailChange::class);
+    }
 
     public function magicLink(): string
     {
