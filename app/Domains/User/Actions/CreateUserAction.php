@@ -12,7 +12,7 @@ class CreateUserAction
      * @throws CustomerAlreadyCreated
      * @throws IncompletePayment
      */
-    public function handle(string $email): User
+    public function handle(string $email): ?User
     {
         $user = User::query()
             ->create([
@@ -20,9 +20,9 @@ class CreateUserAction
                 'locale' => app()->getLocale(),
             ])->fresh();
 
-        //$user->createAsStripeCustomer();
+        // $user->createAsStripeCustomer();
 
-        //$user->newSubscription('default', SubscriptionPlan::Free->getPriceId())->create();
+        // $user->newSubscription('default', SubscriptionPlan::Free->getPriceId())->create();
 
         return $user;
     }
