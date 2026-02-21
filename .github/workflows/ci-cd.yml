@@ -105,6 +105,7 @@ jobs:
             docker compose -f docker-compose.staging.yml up -d
             sleep 20
             docker exec rescanny-staging-api php artisan migrate --force
+            docker exec rescanny-staging-api chown -R www-data:www-data storage
 
 
   deploy_production:
@@ -139,3 +140,4 @@ jobs:
             docker compose up -d
             sleep 20
             docker exec rescanny-api php artisan migrate --force
+            docker exec rescanny-api chown -R www-data:www-data storage
